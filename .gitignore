@@ -1,0 +1,6 @@
+datasets
+experiments*
+models*
+WSJ*
+**/__pycache__
+docker.log.txt
