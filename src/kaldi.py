@@ -54,7 +54,7 @@ class Kaldi:
             f'-v {self.base_dir.joinpath("data")}:/root/kaldi/wsj_recipe/data '\
             f'-v {self.base_dir.joinpath("adversarial_examples")}:/root/kaldi/wsj_recipe/adversarial_examples '\
             f'{" ".join(additional_cmds)} '\
-            f' dompteur '\
+            f'dompteur '\
             f'/bin/bash -c "cd /root/kaldi/wsj_recipe/ && {cmd} && chown -R {os.geteuid()}:{os.geteuid()} /root/experiment"'
         ## Step 2: execute
         start = time.time()
@@ -62,7 +62,6 @@ class Kaldi:
             log_file.write(f'\n{"#"*100}\n{cmd}\n{"#"*100}\n{full_cmd}\n{"#"*100}\n\n')
             try:
                 if run(full_cmd, stdout=log_file, stderr=log_file, shell=True).returncode != 0:
-                    import IPython; IPython.embed()
                     raise RuntimeError('Container returned statuscode != 0. See `kaldi_log.txt` for more details.')
             except KeyboardInterrupt as e:
                 run(f'docker kill {container_name}', stdout=log_file, stderr=log_file, shell=True)

@@ -59,7 +59,7 @@ def train_model(base_dir, wsj_dir, gpus='all', phi="None", low="None", high="Non
                              f'-v {wsj_threshs_dir}:/root/WSJ_threshs',
                              f'--gpus device={gpus}',
                              f'-e NUMJOBS={cpu_count()}',
-                             f'-e PHI={phi} -e LOG_CLAMP=0'
+                             f'-e PHI={phi} -e LOG_CLAMP=0',
                              f'-e LOW_FREQUENCY_IDX={low_frequency_idx} -e HIGH_FREQUENCY_IDX={high_frequency_idx}']
         )
         logger.stop()
