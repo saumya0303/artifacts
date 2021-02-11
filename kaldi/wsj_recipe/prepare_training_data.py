@@ -20,11 +20,12 @@ def process_entry(entry):
     wav_path = dataset_data_dir.joinpath(utterance).with_suffix(".wav")
     run(f'{wav_cmd[:-1]} > {wav_path}', shell=True)
     # convert
-    threshs_file = Path(f'/root/WSJ_threshs/{utterance}.csv')
-    out_file = Path(wav_path)
-    in_file = wav_path.with_suffix('.original.wav')
-    wav_path.rename(in_file)
-    Psycho(PHI).convert_wav(in_file, threshs_file, out_file)
+    if PHI is not None:
+        threshs_file = Path(f'/root/WSJ_threshs/{utterance}.csv')
+        out_file = Path(wav_path)
+        in_file = wav_path.with_suffix('.original.wav')
+        wav_path.rename(in_file)
+        Psycho(PHI).convert_wav(in_file, threshs_file, out_file)
 
     # return updated entry
     return f"{utterance} {wav_path} \n"
